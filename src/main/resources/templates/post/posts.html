@@ -36,6 +36,7 @@
                 <td><a href="post.html" th:href="@{/posts/{postId}(postId=${post.id})}" th:text="${post.id}">게시글id</a></td>
                 <td><a href="post.html" th:href="@{|/posts/${post.id}|}" th:text="${post.title}">게시글 제목</a></td>
                 <td th:text="${post.content}">내용</td>
+                <td><a href="post.html" th:href="@{|/posts/${post.id}/delete|}">삭제</a></td>
             </tr>
             </tbody>
         </table>
