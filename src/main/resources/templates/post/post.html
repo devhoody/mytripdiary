@@ -33,6 +33,10 @@
         <label for="content" th:text="#{label.post.content}">내용</label>
         <input type="text" id="content" name="content" class="form-control" value="10000" th:value="${post.content}" readonly>
     </div>
+    <div>
+        <label th:text="#{label.post.imageFiles}">사진</label>
+        <img th:each="imageFile :${post.imageFiles}" th:src="|/images/${imageFile.getStoreFilename()}|" width="300" height="300"/>
+    </div>
 
     <hr class="my-4">
 
