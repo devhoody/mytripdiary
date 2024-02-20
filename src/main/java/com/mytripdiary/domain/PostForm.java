@@ -10,6 +10,5 @@ public class PostForm {
     private Long id;
     private String title;
     private String content;
-    private MultipartFile attachFile;
     private List<MultipartFile> imageFiles;
 }

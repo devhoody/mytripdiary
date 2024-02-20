@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -43,20 +44,17 @@ public class PostController {
     @PostMapping("posts/add")
     public String add(@ModelAttribute PostForm form, Model model, RedirectAttributes redirectAttributes) throws IOException {
 
-        MultipartFile attachFile = form.getAttachFile();
+
         List<MultipartFile> imageFiles = form.getImageFiles();
 
-        UploadFile uploadFile = fileStore.fileStore(attachFile);
         List<UploadFile> uploadFiles = fileStore.filesStore(imageFiles);
 
-        log.info("uploadFilename : " + uploadFile.getUploadFilename());
         log.info("imageFiles : " + uploadFiles.get(0).toString());
 
         //데이터베이스 저장
         Post post = Post.builder()
                 .title(form.getTitle())
                 .content(form.getContent())
-                .attachFile(uploadFile)
                 .imageFiles(uploadFiles)
                 .build();
 
@@ -104,6 +102,22 @@ public class PostController {
 
     @GetMapping("posts/{postId}/delete")
     public String delete(@PathVariable(name = "postId") Long id) {
+        Post findPost = postService.findById(id);
+        List<UploadFile> imageFiles = findPost.getImageFiles();
+        for (UploadFile imageFile : imageFiles) {
+            String storeFilename = imageFile.getStoreFilename();
+            String fullPath = fileStore.getFullPath(storeFilename);
+
+            File file = new File(fullPath);
+            if(file.exists()){
+                //파일 삭제
+                file.delete();
+                log.info("파일이 삭제되었습니다. 파일명 : " + imageFile.getUploadFilename());
+            } else {
+                log.info("파일이 존재하지 않습니다.");
+            }
+        }
+
         postService.delete(id);
         return "redirect:/posts";
     }
