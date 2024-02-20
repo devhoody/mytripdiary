@@ -35,6 +35,8 @@ public class MemoryPostRepository {
         Post findPost = findById(id);
         findPost.setTitle(updateParam.getTitle());
         findPost.setContent(updateParam.getContent());
+        findPost.setImageFiles(updateParam.getImageFiles());
+        findPost.setAttachFile(updateParam.getAttachFile());
     }
 
     //삭제
