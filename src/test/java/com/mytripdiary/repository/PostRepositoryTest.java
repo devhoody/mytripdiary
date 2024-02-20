@@ -20,7 +20,7 @@ public class PostRepositoryTest {
     @Test
     void save() {
         //given
-        Post post = new Post(1L, "제목", "내용");
+        Post post = new Post(1L, "제목", "내용", null, null);
 
         //when
         Post savePost = postRepository.save(post);
@@ -32,7 +32,7 @@ public class PostRepositoryTest {
     @Test
     void findById() {
         //given
-        Post post = new Post(1L, "제목", "내용");
+        Post post = new Post(1L, "제목", "내용", null, null);
         Post savedPost = postRepository.save(post);
 
         //when
@@ -45,8 +45,8 @@ public class PostRepositoryTest {
     @Test
     void findAll(){
         //given
-        Post post1 = new Post(1L, "제목", "내용");
-        Post post2 = new Post(2L, "제목2", "내용2");
+        Post post1 = new Post(1L, "제목", "내용", null, null);
+        Post post2 = new Post(2L, "제목2", "내용2", null, null);
         postRepository.save(post1);
         postRepository.save(post2);
 
@@ -59,7 +59,7 @@ public class PostRepositoryTest {
     @Test
     void update(){
         //given
-        Post post1 = new Post(1L, "제목", "내용");
+        Post post1 = new Post(1L, "제목", "내용", null, null);
         postRepository.save(post1);
         post1.setTitle("제목3");
 
@@ -74,8 +74,8 @@ public class PostRepositoryTest {
     @Test
     void delete(){
         //given
-        Post post1 = new Post(1L, "제목", "내용");
-        Post post2 = new Post(2L, "제목2", "내용2");
+        Post post1 = new Post(1L, "제목", "내용", null, null);
+        Post post2 = new Post(2L, "제목2", "내용2", null, null);
         postRepository.save(post1);
         postRepository.save(post2);
 
